@@ -14,6 +14,7 @@ define_class! {
         pub mode: PyGameMode!,
         pub section_length: f64!,
         pub aim: DoubleList?,
+        pub relax: DoubleList?,
         pub aim_no_sliders: DoubleList?,
         pub speed: DoubleList?,
         pub flashlight: DoubleList?,
@@ -31,6 +32,7 @@ impl From<OsuStrains> for PyStrains {
     fn from(strains: OsuStrains) -> Self {
         let OsuStrains {
             aim,
+            relax,
             aim_no_sliders,
             speed,
             flashlight,
@@ -40,6 +42,7 @@ impl From<OsuStrains> for PyStrains {
             mode: PyGameMode::Osu,
             section_length: OsuStrains::SECTION_LEN,
             aim: Some(aim),
+            relax: Some(relax),
             aim_no_sliders: Some(aim_no_sliders),
             speed: Some(speed),
             flashlight: Some(flashlight),
