@@ -40,6 +40,8 @@ define_class! {
         pub n_tiny_droplets: u32?,
         pub n_objects: u32?,
         pub n_hold_notes: u32?,
+        pub variety: f64?,
+        pub acc_scalar: f64?,
         pub ar: f64?,
         pub preempt: f64?,
         pub great_hit_window: f64?,
@@ -184,6 +186,8 @@ impl From<ManiaDifficultyAttributes> for PyDifficultyAttributes {
             n_hold_notes,
             max_combo,
             is_convert,
+            variety,
+            acc_scalar,
         } = attrs;
 
         Self {
@@ -192,6 +196,8 @@ impl From<ManiaDifficultyAttributes> for PyDifficultyAttributes {
             is_convert,
             n_objects: Some(n_objects),
             n_hold_notes: Some(n_hold_notes),
+            variety: Some(variety),
+            acc_scalar: Some(acc_scalar),
             max_combo,
             ..Self::default()
         }
@@ -244,6 +250,8 @@ impl TryFrom<PyDifficultyAttributes> for DifficultyAttributes {
             n_tiny_droplets,
             n_objects,
             n_hold_notes,
+            variety,
+            acc_scalar,
             ar,
             preempt,
             great_hit_window,
@@ -385,13 +393,17 @@ impl TryFrom<PyDifficultyAttributes> for DifficultyAttributes {
                 }
             }
             PyGameMode::Mania => {
-                if let (Some(n_objects), Some(n_hold_notes)) = (n_objects, n_hold_notes) {
+                if let (Some(n_objects), Some(n_hold_notes), Some(variety), Some(acc_scalar)) =
+                    (n_objects, n_hold_notes, variety, acc_scalar)
+                {
                     return Ok(Self::Mania(ManiaDifficultyAttributes {
                         stars,
                         n_objects,
                         n_hold_notes,
                         max_combo,
                         is_convert,
+                        variety,
+                        acc_scalar,
                     }));
                 }
             }

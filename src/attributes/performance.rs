@@ -24,6 +24,9 @@ define_class! {
         pub speed_deviation: f64?,
         pub estimated_unstable_rate: f64?,
         pub pp_difficulty: f64?,
+        pub variety_multiplier: f64?,
+        pub acc_multiplier: f64?,
+        pub length_multiplier: f64?,
         pub combo_based_estimated_miss_count: f64?,
         pub score_based_estimated_miss_count: f64?,
         pub aim_estimated_slider_breaks: f64?,
@@ -105,12 +108,18 @@ impl From<ManiaPerformanceAttributes> for PyPerformanceAttributes {
             difficulty,
             pp,
             pp_difficulty,
+            variety_multiplier,
+            acc_multiplier,
+            length_multiplier,
         } = attrs;
 
         Self {
             difficulty: difficulty.into(),
             pp,
             pp_difficulty: Some(pp_difficulty),
+            variety_multiplier: Some(variety_multiplier),
+            acc_multiplier: Some(acc_multiplier),
+            length_multiplier: Some(length_multiplier),
             ..Self::default()
         }
     }
